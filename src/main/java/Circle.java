@@ -1,16 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class Circle extends JComponent {
-    private int x;
-    private int y;
+    Random randomGenerator = new Random();
+    int red = randomGenerator.nextInt(256);
+    int green = randomGenerator.nextInt(256);
+    int blue = randomGenerator.nextInt(256);
     private int radius;
-    private static final Color color = Color.BLACK;
+    private final Color color = new Color(red, green, blue);
 
     public Circle(int x, int y, int radius) {
         this.setLayout(null);
-        this.x = x;
-        this.y = y;
         this.radius = radius;
         this.setBounds(x, y, radius, radius);
     }
