@@ -1,4 +1,3 @@
-import lombok.Data;
 import lombok.Getter;
 
 import javax.swing.*;
@@ -6,7 +5,7 @@ import java.awt.*;
 import java.util.Random;
 
 @Getter
-public class Circle extends JComponent implements Movable {
+public class Circle extends Element implements Movable {
 
     private Random randomGenerator = new Random();
     private int red = randomGenerator.nextInt(256);
@@ -14,7 +13,6 @@ public class Circle extends JComponent implements Movable {
     private int blue = randomGenerator.nextInt(256);
     private final Color color = new Color(red, green, blue);
 
-    private Center center;
     private int radius;
 
     private int leftBorder = 0;
@@ -26,7 +24,7 @@ public class Circle extends JComponent implements Movable {
         this.setLayout(null);
         this.radius = radius;
         this.setBounds(x, y, radius, radius);
-        center = new Center();
+        getCenter().updateCenterPosition();
     }
 
     @Override
@@ -35,23 +33,6 @@ public class Circle extends JComponent implements Movable {
         g.setColor(color);
         g.fillOval(0, 0, radius, radius);
     }
-
-    public int getTop() {
-        return this.getY();
-    }
-
-    public int getBottom() {
-        return getTop() + radius;
-    }
-
-    public int getLeft() {
-        return this.getX();
-    }
-
-    public int getRight() {
-        return getLeft() + radius;
-    }
-
 
     @Override
     public void moveUp() {
@@ -91,20 +72,4 @@ public class Circle extends JComponent implements Movable {
         }
     }
 
-
-    @Getter
-    class Center {
-        private int x;
-        private int y;
-
-        private Center() {
-            updateCenterPosition();
-        }
-
-        public void updateCenterPosition() {
-            x = getRight() - getRadius() / 2;
-            y = getBottom() - getRadius() / 2;
-        }
-
-    }
 }
