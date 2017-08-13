@@ -1,7 +1,11 @@
+import lombok.Data;
+import lombok.Getter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+@Getter
 public class Circle extends JComponent {
     Random randomGenerator = new Random();
     int red = randomGenerator.nextInt(256);
@@ -9,11 +13,13 @@ public class Circle extends JComponent {
     int blue = randomGenerator.nextInt(256);
     private int radius;
     private final Color color = new Color(red, green, blue);
+    private Center center;
 
     public Circle(int x, int y, int radius) {
         this.setLayout(null);
         this.radius = radius;
         this.setBounds(x, y, radius, radius);
+        center = new Center();
     }
 
     @Override
@@ -37,5 +43,25 @@ public class Circle extends JComponent {
 
     public int getRight() {
         return getLeft() + radius;
+    }
+
+    public Center getCenter() {
+        return center;
+    }
+
+    @Getter
+    class Center {
+        private int x;
+        private int y;
+
+        private Center() {
+            updateCenterPosition();
+        }
+
+        public void updateCenterPosition() {
+            x = getRight() - getRadius()/2;
+            y = getBottom() - getRadius()/2;
+        }
+
     }
 }
