@@ -6,14 +6,21 @@ import java.awt.*;
 import java.util.Random;
 
 @Getter
-public class Circle extends JComponent {
-    Random randomGenerator = new Random();
-    int red = randomGenerator.nextInt(256);
-    int green = randomGenerator.nextInt(256);
-    int blue = randomGenerator.nextInt(256);
-    private int radius;
+public class Circle extends JComponent implements Movable {
+
+    private Random randomGenerator = new Random();
+    private int red = randomGenerator.nextInt(256);
+    private int green = randomGenerator.nextInt(256);
+    private int blue = randomGenerator.nextInt(256);
     private final Color color = new Color(red, green, blue);
+
     private Center center;
+    private int radius;
+
+    private int leftBorder = 0;
+    private int topBorder = 0;
+
+    private int step = 5;
 
     public Circle(int x, int y, int radius) {
         this.setLayout(null);
@@ -45,9 +52,45 @@ public class Circle extends JComponent {
         return getLeft() + radius;
     }
 
-    public Center getCenter() {
-        return center;
+
+    @Override
+    public void moveUp() {
+        int newPosition = getTop() - step;
+        if (newPosition >= topBorder) {
+            setLocation(getX(), newPosition);
+            getCenter().updateCenterPosition();
+        }
     }
+
+    @Override
+    public void moveDown() {
+        int newPosition = getTop() + step;
+        int bottomBorder = getParent().getHeight() - getRadius();
+        if (newPosition <= bottomBorder) {
+            setLocation(getX(), newPosition);
+            getCenter().updateCenterPosition();
+        }
+    }
+
+    @Override
+    public void moveLeft() {
+        int newPosition = getLeft() - step;
+        if (newPosition >= leftBorder) {
+            setLocation(newPosition, getY());
+            getCenter().updateCenterPosition();
+        }
+    }
+
+    @Override
+    public void moveRight() {
+        int newPosition = getLeft() + step;
+        int rightBorder = getParent().getWidth() - getRadius();
+        if (newPosition <= rightBorder) {
+            setLocation(newPosition, getY());
+            getCenter().updateCenterPosition();
+        }
+    }
+
 
     @Getter
     class Center {
@@ -59,8 +102,8 @@ public class Circle extends JComponent {
         }
 
         public void updateCenterPosition() {
-            x = getRight() - getRadius()/2;
-            y = getBottom() - getRadius()/2;
+            x = getRight() - getRadius() / 2;
+            y = getBottom() - getRadius() / 2;
         }
 
     }

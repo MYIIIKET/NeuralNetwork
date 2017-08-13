@@ -12,16 +12,25 @@ public class App {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 circle.grabFocus();
-                System.out.println(circle.getRight() + " " + circle.getCenter().getX());
             }
         });
         circle.addKeyListener(new KeyAdapter() {
             @Override
-            public void keyTyped(KeyEvent e) {
-                super.keyTyped(e);
-                if (circle.getRight() + 20 <= field.getWidth()) {
-                    circle.setLocation(circle.getX() + 20, circle.getY());
-                    circle.getCenter().updateCenterPosition();
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_W:
+                        circle.moveUp();
+                        break;
+                    case KeyEvent.VK_S:
+                        circle.moveDown();
+                        break;
+                    case KeyEvent.VK_A:
+                        circle.moveLeft();
+                        break;
+                    case KeyEvent.VK_D:
+                        circle.moveRight();
+                        break;
                 }
             }
         });
