@@ -1,29 +1,25 @@
+package Objects;
+
 import lombok.Getter;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.Random;
 
 @Getter
 public class Circle extends Element implements Movable {
 
-    private Random randomGenerator = new Random();
-    private int red = randomGenerator.nextInt(256);
-    private int green = randomGenerator.nextInt(256);
-    private int blue = randomGenerator.nextInt(256);
-    private final Color color = new Color(red, green, blue);
-
     private int radius;
+
+    private static final int step = 20;
 
     private int leftBorder = 0;
     private int topBorder = 0;
 
-    private int step = 5;
+    private Color color = getRandomColor();
 
     public Circle(int x, int y, int radius) {
-        this.setLayout(null);
         this.radius = radius;
-        this.setBounds(x, y, radius, radius);
+        setLayout(null);
+        setBounds(x, y, radius, radius);
         getCenter().updateCenterPosition();
     }
 
