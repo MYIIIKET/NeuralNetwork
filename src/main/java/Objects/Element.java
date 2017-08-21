@@ -60,8 +60,8 @@ public abstract class Element extends JComponent {
         }
 
         public void updateCenterPosition() {
-            x = getRight() - getWidth() / 2;
-            y = getBottom() - getHeight() / 2;
+            x = Element.this.getX() + (getRight() - getWidth() / 2);
+            y = Element.this.getY() + (getBottom() - getHeight() / 2);
         }
     }
 }

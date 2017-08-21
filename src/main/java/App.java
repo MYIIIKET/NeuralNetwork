@@ -1,5 +1,6 @@
 import Objects.Circle;
 import Objects.Field;
+import Objects.Sensor;
 import Objects.Wall;
 import Util.CollisionChecker;
 import Util.Stock;
@@ -22,6 +23,7 @@ public class App {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 circle.grabFocus();
+                System.out.println("click");
             }
         });
         circle.addKeyListener(new KeyAdapter() {
@@ -41,16 +43,16 @@ public class App {
                     case KeyEvent.VK_D:
                         circle.moveRight();
                         break;
+                    case KeyEvent.VK_SPACE:
+//                        circle.rotateClockwise();
+                        break;
                 }
             }
         });
-        Stock.elements.add(circle);
-        Stock.elements.add(wall);
-        CollisionChecker checker = new CollisionChecker();
-        checker.start();
         field.add(circle);
-        field.add(wall);
+        circle.getSensors().forEach(field::add);
         window.add(field);
         window.pack();
     }
+
 }

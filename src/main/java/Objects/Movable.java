@@ -9,6 +9,12 @@ public interface Movable {
 
     void moveRight();
 
+    void moveForward();
+
+    void rotateClockwise();
+
+    void rotateCounterClockwise();
+
     default void moveUpLeft() {
         moveUp();
         moveLeft();
